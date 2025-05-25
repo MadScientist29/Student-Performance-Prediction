@@ -1,61 +1,83 @@
-# 🎓 Student Performance Prediction Using Machine Learning
+# Student Performance Prediction
 
-This project aims to predict whether a student will pass or fail a course using a combination of academic, demographic, and behavioral features. Built using the UCI Student Performance Dataset, the model helps in early identification of at-risk students, allowing educators to provide timely support.
-
----
-
-## 📌 Project Overview
-
-- **Goal:** Binary classification (Pass = 1, Fail = 0)
-- **Dataset Source:** UCI Machine Learning Repository – Student Performance Data
-- **Total Records:** 395 students (merged from Math and Portuguese classes)
-- **Grade Leakage Prevention:** G1 and G2 scores excluded from training
+This project builds a machine learning model to predict whether a student is likely to **pass or fail** a course based on demographic, academic, and behavioral factors. It combines two datasets (Math and Portuguese) from the UCI Machine Learning Repository to analyze key performance indicators and support early intervention in education.
 
 ---
 
-## 📊 Features Used
+## 🔍 Objective
 
-- Demographics: Age, gender, family size, parental education
-- Academic behavior: Study time, past failures, absences
-- Lifestyle: Alcohol use (weekday & weekend), internet access, free time
-- Derived features: Study time × Failures, Absences per Age
+The goal is to develop a **binary classification model** that predicts student success (Pass = 1, Fail = 0) and provides **interpretable insights** into which features influence outcomes the most.
 
 ---
 
-## 🧠 Machine Learning Approach
+## 📦 Dataset
 
-| Step                     | Description                                                             |
-|--------------------------|-------------------------------------------------------------------------|
-| Data Integration         | Merged Math and Portuguese student datasets                             |
-| Preprocessing            | Label encoding, outlier removal, SMOTE for class imbalance              |
-| Model Training           | Logistic Regression, Decision Tree, Random Forest                       |
-| Threshold Tuning         | Custom probability threshold (0.60) to improve recall for "fail" class  |
-| Explainability           | SHAP and LIME used to identify most influential features                |
-
----
-
-## ✅ Model Performance (Best: Random Forest, Threshold = 0.60)
-
-- **Accuracy:** 71.4%
-- **Recall (Fail):** 60%
-- **F1 Score (Fail):** 0.52
-- **Top Predictors:** Past failures, absences, study time, weekend alcohol use
+- Source: [UCI Student Performance Dataset](https://archive.ics.uci.edu/ml/datasets/Student+Performance)
+- Files used:
+  - `student-mat.csv` – Math performance
+  - `student-por.csv` – Portuguese performance
+- Merged on shared student attributes (school, age, family background, etc.)
+- New feature: `G3_avg` = average of both final grades, used to create the target variable
 
 ---
 
-## 📈 Key Insights
+## 🛠️ Tools & Libraries
 
-- Over 60% of students predicted to fail had low study time and frequent absences.
-- Students with higher parental education and internet access had better outcomes.
-- Alcohol consumption on weekends showed negative correlation with performance.
+- Python, Pandas, NumPy
+- Scikit-learn
+- Matplotlib, Seaborn
+- SHAP, LIME (Model Explainability)
+- SMOTE (for oversampling)
+- GridSearchCV (Hyperparameter Tuning)
 
 ---
 
-## 🛠️ Tech Stack
+## 🧪 Methodology
 
-- **Languages:** Python
-- **Libraries:** pandas, scikit-learn, imbalanced-learn, matplotlib, seaborn, SHAP, LIME
-- **Tools:** Jupyter Notebook, Google Colab
+### 1. Data Preprocessing
+- Merged Math and Portuguese datasets
+- Encoded categorical features
+- Removed final grade columns to avoid data leakage
+- Created new features such as `studytime * failures`, `absences / age`
+
+### 2. Exploratory Data Analysis (EDA)
+- Analyzed target distribution, correlations, and feature relationships
+- Identified key factors: study time, absences, failures, alcohol use, internet access
+
+### 3. Model Building
+- Trained Logistic Regression, Decision Tree, and Random Forest classifiers
+- Handled class imbalance using:
+  - `class_weight='balanced'`
+  - SMOTE (optional)
+- Tuned hyperparameters with GridSearchCV
+
+### 4. Threshold Tuning
+- Evaluated prediction probabilities and tested thresholds from 0.3 to 0.7
+- Selected optimal threshold of **0.30** for **maximizing overall accuracy and Pass class prediction confidence**
+
+### 5. Model Explainability
+- SHAP: Visualized global feature importance
+- LIME: Explained individual predictions
+
+---
+
+## 📊 Final Model Performance (Threshold = 0.30)
+
+| Metric        | Value     |
+|---------------|-----------|
+| Accuracy      | 75.3%     |
+| Recall (Fail) | 5.0%      |
+| F1 (Fail)     | 9.5%      |
+| Recall (Pass) | 100.0%    |
+| F1 (Pass)     | 85.7%     |
+
+---
+
+## 🧠 Key Insights
+
+- **Absences, failures, low study time, and weekend alcohol use** are strong predictors of failure.
+- **School support, parental education, and internet access** contribute positively to performance.
+- Threshold tuning improved the model’s ability to **predict passes with high confidence**, though fail cases remain under-detected at this threshold.
 
 ---
 
