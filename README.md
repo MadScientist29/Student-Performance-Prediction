@@ -98,3 +98,9 @@ student-performance-prediction/
 ├── README.md
 ```
 
+## 📬 Contact
+
+For queries, collaboration, or feedback, feel free to reach out  via GitHub or email.
+
+---
+
