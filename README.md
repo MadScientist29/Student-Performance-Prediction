@@ -87,15 +87,14 @@ The goal is to develop a **binary classification model** that predicts student s
 student-performance-prediction/
 ├── data/
 │   ├── student-mat.csv
+    ├── student.txt
+    ├── student-merge.r
+    ├── .student.zip_old.zip
 │   └── student-por.csv
 ├── notebooks/
 │   └── student_performance_model.ipynb
-├── images/
-│   ├── shap_summary_plot.png
-│   ├── lime_explanation.png
-│   └── threshold_metrics_plot.png
-├── Student_Performance_Prediction_PPT.pptx
+├── docs/
+│   ├── Executive_Summary.docx
 ├── README.md
-└── requirements.txt
 ```
 
